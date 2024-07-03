@@ -1,3 +1,4 @@
+import dotenv from 'dotenv'
 const currencyList = [
     { code: "AED", name: "United Arab Emirates Dirham" },
     { code: "ARS", name: "Argentine Peso" },
@@ -181,9 +182,9 @@ async function convertCurrency() {
         return;
     }
 
-    require('dotenv').config();
+    dotenv.config()
     const apiKey = process.env.API_KEY;
-    const url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${fromCurrency}`; // https://v6.exchangerate-api.com/v6/c7fd81dec7c81fbbd78aea9b/latest/USD
+    const url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${fromCurrency}`; 
 
     try {
         const response = await fetch(url);
@@ -191,7 +192,7 @@ async function convertCurrency() {
 
         if (data && data.conversion_rates && data.conversion_rates[toCurrency]) {
             const rate = data.conversion_rates[toCurrency];
-            const convertedAmount = (amount * rate).toFixed(2);
+            const convertedAmount = (amount * rate).toFixed(5);
             document.getElementById('result').innerText = `${amount} ${fromCurrency} = ${convertedAmount} ${toCurrency}`;
         } else {
             document.getElementById('result').innerText = 'Unable to get the exchange rate. Please try again.';
