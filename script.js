@@ -1,4 +1,4 @@
-import dotenv from 'dotenv'
+// Currency List
 const currencyList = [
     { code: "AED", name: "United Arab Emirates Dirham" },
     { code: "ARS", name: "Argentine Peso" },
@@ -181,14 +181,13 @@ async function convertCurrency() {
         document.getElementById('result').innerText = 'Please enter a valid amount.';
         return;
     }
-
-    dotenv.config()
-    const apiKey = process.env.API_KEY;
-    const url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${fromCurrency}`; 
+    const apiKey = 'c7fd81dec7c81fbbd78aea9b'
+    const url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${fromCurrency}`;
 
     try {
         const response = await fetch(url);
         const data = await response.json();
+        console.log(data)
 
         if (data && data.conversion_rates && data.conversion_rates[toCurrency]) {
             const rate = data.conversion_rates[toCurrency];
